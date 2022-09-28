@@ -1,10 +1,15 @@
 import './App.css';
+import NavigationBar from "./components/navbar/navbar.component";
 
 const App = () => {
     return (
-        <div className="App">
-            welcome To React App
-        </div>
+        <>
+            <NavigationBar/>
+
+            <div className="App">
+                welcome To React App
+            </div>
+        </>
     );
 }
 
