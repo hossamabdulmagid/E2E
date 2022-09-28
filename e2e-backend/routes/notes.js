@@ -43,8 +43,8 @@ notesRoutes.route("/notes/add").post((req, response) => {
     let db_connect = db.getDb();
     let myObj = {
         name: req.body.name,
-        position: req.body.position,
-        level: req.body.level,
+        title: req.body.title,
+        description: req.body.description,
     };
     db_connect.collection("notes").insertOne(myObj, (err, res) => {
         if (err) throw err;
@@ -59,8 +59,8 @@ notesRoutes.route("/notes/:id").post((req, response) => {
     let newValues = {
         $set: {
             name: req.body.name,
-            position: req.body.position,
-            level: req.body.level,
+            title: req.body.title,
+            description: req.body.description,
         },
     };
     db_connect
