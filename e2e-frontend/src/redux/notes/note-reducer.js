@@ -2,11 +2,7 @@ import {NoteActions} from "./note-types";
 
 const INITIAL_STATE = {
     isFetching: false,
-    data: {
-        name: '',
-        title: '',
-        description: ''
-    },
+    data: [],
     errorMessage: null,
 };
 
@@ -22,11 +18,7 @@ const NotesReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: false,
-                data: {
-                    name: action.payload.name,
-                    title: action.payload.title,
-                    description: action.payload.description,
-                },
+                data: action.payload,
             }
 
         case NoteActions.GET_NOTES_ERROR:

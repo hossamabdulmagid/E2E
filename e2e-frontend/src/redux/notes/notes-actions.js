@@ -30,7 +30,7 @@ const createNoteSuccess = () => ({
 
 const createNoteError = (error) => ({
     type: NoteActions.CREATE_NOTES_ERROR,
-    paylaod: error
+    payload: error
 });
 
 

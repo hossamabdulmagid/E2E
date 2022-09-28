@@ -54,6 +54,7 @@ notesRoutes.route("/notes/add").post((req, response) => {
 });
 
 // This section will help you update a notes by id.
+
 notesRoutes.route("/notes/:id").post((req, response) => {
     let db_connect = db.getDb();
     let myQuery = {_id: ObjectId(req.params.id)};
@@ -73,8 +74,10 @@ notesRoutes.route("/notes/:id").post((req, response) => {
         });
 });
 
+
 // This section will help you delete a notes
-notesRoutes.route("/:id").delete((req, response) => {
+
+notesRoutes.route("notes/:id").delete((req, response) => {
     let db_connect = db.getDb();
     let myQuery = {_id: ObjectId(req.params.id)};
     db_connect.collection("notes").deleteOne(myQuery, (err, obj) => {
