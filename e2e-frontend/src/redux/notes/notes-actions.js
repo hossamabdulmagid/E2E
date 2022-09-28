@@ -33,6 +33,37 @@ const createNoteError = (error) => ({
     payload: error
 });
 
+const editNoteStart = () => ({
+    type: NoteActions.EDIT_NOTES_START,
+})
+const editNoteSuccess = (data) => ({
+    type: NoteActions.EDIT_NOTES_SUCCESS,
+    payload: data,
+})
+const editNoteError = (err) => ({
+    type: NoteActions.EDIT_NOTES_START,
+    payload: err,
+})
+
+
+export const DoEditNote = (data) => {
+    console.log(data);
+    console.log(`id get Called ${data._id}`);
+    return dispatch => {
+        dispatch(editNoteStart())
+        axios
+            .put(`${url}/notes/${data._id}`, {
+                ...data
+            })
+            .then(res => {
+                console.log(res);
+                dispatch(editNoteSuccess())
+            })
+            .catch(err => {
+                dispatch(editNoteError(err))
+            })
+    }
+}
 
 export const DoCreateNote = (data) => {
     console.log(data);
