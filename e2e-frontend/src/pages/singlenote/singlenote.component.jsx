@@ -55,7 +55,7 @@ const SingleNote = ({DoEditNote}) => {
 
             dispatch(doGetSingleNote(id.id));
         }
-    }, [])
+    }, [ singleNote.id])
 
 
     return (

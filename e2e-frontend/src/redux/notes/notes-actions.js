@@ -44,11 +44,35 @@ const editNoteError = (err) => ({
     payload: err,
 })
 
+const getSingleNoteStart = () => ({
+    type: NoteActions.SINGLE_NOTE_START,
+})
+
+const getSingleNoteSuccess = (data) => ({
+    type: NoteActions.SINGLE_NOTE_SUCCESS,
+    payload: data
+})
+
+const getSingleNoteError = (err) => ({
+    type: NoteActions.SINGLE_NOTE_ERROR,
+    payload: err,
+})
+const DeleteNoteStart = () => ({
+    type: NoteActions.DELETE_NOTE_START
+})
+const DeleteNoteSuccess = () => ({
+    type: NoteActions.DELETE_NOTE_SUCCESS,
+})
+const DeleteNoteError = (err) => ({
+    type: NoteActions.DELETE_NOTE_ERROR,
+    payload: err,
+})
+
 
 export const DoEditNote = (data) => {
     console.log(`id get Called ${data._id}`);
     console.log(`@@@@runing`)
-    console.log(data,`data from action files`);
+    console.log(data, `data from action files`);
     console.log(`id get Called ${data._id}`);
     return dispatch => {
         dispatch(editNoteStart())
@@ -56,9 +80,9 @@ export const DoEditNote = (data) => {
             .post(`${url}/notes/${data._id}`, {
                 ...data
             })
-            .then(res => {
-                dispatch(editNoteSuccess())
-                console.log(res);
+            .then(() => {
+                dispatch(editNoteSuccess());
+                dispatch(DoGetAllNotes());
             })
             .catch(err => {
                 dispatch(editNoteError(err))
@@ -77,7 +101,8 @@ export const DoCreateNote = (data) => {
             })
             .then(res => {
                 console.log(res)
-                dispatch(createNoteSuccess())
+                dispatch(createNoteSuccess());
+                dispatch(DoGetAllNotes());
             })
             .catch(err => {
                 dispatch(createNoteError(err))
@@ -101,21 +126,6 @@ export const DoGetAllNotes = () => {
 }
 
 
-const getSingleNoteStart = () => ({
-    type: NoteActions.SINGLE_NOTE_START,
-})
-
-const getSingleNoteSuccess = (data) => ({
-    type: NoteActions.SINGLE_NOTE_SUCCESS,
-    payload: data
-})
-
-const getSingleNoteError = (err) => ({
-    type: NoteActions.SINGLE_NOTE_ERROR,
-    payload: err,
-})
-
-
 export const doGetSingleNote = (id) => {
     return dispatch => {
         dispatch(getSingleNoteStart())
@@ -130,17 +140,6 @@ export const doGetSingleNote = (id) => {
     }
 }
 
-const DeleteNoteStart = () => ({
-    type: NoteActions.DELETE_NOTE_START
-})
-const DeleteNoteSuccess = () => ({
-    type: NoteActions.DELETE_NOTE_SUCCESS,
-})
-const DeleteNoteError = (err) => ({
-    type: NoteActions.DELETE_NOTE_ERROR,
-    payload: err,
-})
-
 
 export const doDeleteSingleNote = (id) => {
     return dispatch => {
@@ -149,6 +148,7 @@ export const doDeleteSingleNote = (id) => {
             .delete(`${url}/${id}`)
             .then(() => {
                 dispatch(DeleteNoteSuccess())
+                dispatch(DoGetAllNotes())
             })
             .catch(err => {
                 dispatch(DeleteNoteError(err))
