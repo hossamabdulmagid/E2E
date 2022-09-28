@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 
 const CreateNotes = () => {
     let dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const onSubmit = data => {
@@ -18,8 +19,6 @@ const CreateNotes = () => {
             navigate('/notes');
         }
     }
-
-    const navigate = useNavigate();
 
 
     const goToHomePage = () => {
