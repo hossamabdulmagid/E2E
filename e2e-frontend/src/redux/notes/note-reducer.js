@@ -58,6 +58,23 @@ const NotesReducer = (state = INITIAL_STATE, action) => {
                 isFetching: false,
                 errorMessage: action.payload.errorMessage,
             }
+
+        case NoteActions.EDIT_NOTES_START:
+            return {
+                ...state,
+                isFetching: true,
+            }
+        case NoteActions.EDIT_NOTES_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+            }
+        case NoteActions.EDIT_NOTES_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                errorMessage: action.payload.errorMessage,
+            }
         default:
             return state;
     }

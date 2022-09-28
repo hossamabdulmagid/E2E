@@ -36,28 +36,28 @@ const createNoteError = (error) => ({
 const editNoteStart = () => ({
     type: NoteActions.EDIT_NOTES_START,
 })
-const editNoteSuccess = (data) => ({
+const editNoteSuccess = () => ({
     type: NoteActions.EDIT_NOTES_SUCCESS,
-    payload: data,
 })
 const editNoteError = (err) => ({
-    type: NoteActions.EDIT_NOTES_START,
+    type: NoteActions.EDIT_NOTES_ERROR,
     payload: err,
 })
 
 
 export const DoEditNote = (data) => {
+    console.log(`id get Called ${data._id}`);
+    console.log(`@@@@runing`);
     console.log(data);
     console.log(`id get Called ${data._id}`);
     return dispatch => {
         dispatch(editNoteStart())
         axios
-            .put(`${url}/notes/${data._id}`, {
+            .update(`${url}/notes/${data._id}`, {
                 ...data
             })
             .then(res => {
                 console.log(res);
-                dispatch(editNoteSuccess())
             })
             .catch(err => {
                 dispatch(editNoteError(err))
