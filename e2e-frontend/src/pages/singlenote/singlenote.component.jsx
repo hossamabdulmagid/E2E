@@ -1,7 +1,13 @@
 const SingleNote = () => {
     return (
-        <div>
-            SingleNote
+        <div className={'container'}>
+            <div className={'row'}>
+                <div className={'col-sm-12 text-center'}>
+                    <h1>
+                        welcome To Single Note
+                    </h1>
+                </div>
+            </div>
         </div>
     )
 }
