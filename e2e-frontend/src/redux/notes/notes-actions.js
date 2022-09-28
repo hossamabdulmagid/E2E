@@ -98,3 +98,33 @@ export const DoGetAllNotes = () => {
             })
     }
 }
+
+
+const getSingleNoteStart = () => ({
+    type: NoteActions.SINGLE_NOTE_START,
+})
+
+const getSingleNoteSuccess = (data) => ({
+    type: NoteActions.SINGLE_NOTE_SUCCESS,
+    payload: data
+})
+
+const getSingleNoteError = (err) => ({
+    type: NoteActions.SINGLE_NOTE_ERROR,
+    payload: err,
+})
+
+
+export const doGetSingleNote = (id) => {
+    return dispatch => {
+        dispatch(getSingleNoteStart())
+        axios
+            .get(`${url}/notes/${id}`)
+            .then(res => {
+                dispatch(getSingleNoteSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(getSingleNoteError(err))
+            })
+    }
+}
