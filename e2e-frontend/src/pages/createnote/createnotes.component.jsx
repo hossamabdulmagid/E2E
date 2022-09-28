@@ -26,11 +26,9 @@ const CreateNotes = () => {
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Control
                                         {...register("name", {required: "Name is required"})}
-
                                         className={'mb-4'}
                                         type="text"
                                         placeholder="Enter name Of Your Notes"
-
                                     />
                                     <div className={'text-danger'}>
 
@@ -38,7 +36,6 @@ const CreateNotes = () => {
                                     </div>
                                     <Form.Control
                                         {...register("title", {required: "Title is required"})}
-
                                         className={'mb-4'}
                                         type="text"
                                         placeholder="Enter title Of Your Notes"
@@ -46,11 +43,9 @@ const CreateNotes = () => {
                                     />
                                     <div className={'text-danger'}>
                                         {errors.title && <p role="alert">{errors.title?.message}</p>}
-
                                     </div>
                                     <Form.Control
                                         {...register("description", {required: "Description is required"})}
-
                                         className={'mb-4'}
                                         as="textarea"
                                         rows={3}
