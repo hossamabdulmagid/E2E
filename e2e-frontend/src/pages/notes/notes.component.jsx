@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
 import {DoGetAllNotes} from "../../redux/notes/notes-actions";
 import {connect, useDispatch} from "react-redux";
-import {Card, CardGroup} from "react-bootstrap";
+import {Card, CardGroup, Spinner} from "react-bootstrap";
 
-const Notes = ({allNotes = []}) => {
+const Notes = ({allNotes = [], loading}) => {
     let dispatch = useDispatch();
     useEffect(() => {
 
@@ -20,7 +20,7 @@ const Notes = ({allNotes = []}) => {
                 </h1>
 
                 <CardGroup>
-                    {allNotes && allNotes.map((singleNote, idx) => {
+                    {!loading ? allNotes && allNotes.map((singleNote, idx) => {
                         return (
                             <div className={'col-sm-4'} key={idx}>
                                 <Card className={'me-2'}>
@@ -40,7 +40,15 @@ const Notes = ({allNotes = []}) => {
                                 </Card>
                             </div>
                         )
-                    })}
+                    }) :
+                        <div className={'container'}>
+                            <div className={'row'}>
+                                <div className={'col-md-12 align-center'}>
+                                    <Spinner animation={"border"}/>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
                 </CardGroup>
             </div>
@@ -50,6 +58,7 @@ const Notes = ({allNotes = []}) => {
 
 const mapStateToProps = state => ({
     allNotes: state.notes.data,
+    loading: state.notes.isFetching,
 })
 
 export default connect(mapStateToProps, null)(Notes);
