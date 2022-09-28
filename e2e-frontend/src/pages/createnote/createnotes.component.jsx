@@ -1,12 +1,11 @@
-const HomePage = () => {
+const CreateNotes = () => {
     return (
-
         <div className={'container text-center'}>
             <h1>
-                Homepage
+                CreateNote
             </h1>
         </div>
     )
 }
 
-export default HomePage;
+export default CreateNotes;
