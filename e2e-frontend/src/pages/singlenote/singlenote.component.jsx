@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Alert, Button, Card, Modal, Spinner} from 'react-bootstrap';
-import {useParams} from "react-router";
-import {doGetSingleNote} from "../../redux/notes/notes-actions";
+import {useNavigate, useParams} from "react-router";
+import {doDeleteSingleNote, doGetSingleNote} from "../../redux/notes/notes-actions";
 import {useDispatch, useSelector} from "react-redux";
 
 const SingleNote = () => {
@@ -10,7 +10,7 @@ const SingleNote = () => {
     let singleNote = useSelector((state) => state.notes.singleNote);
     let Loading = useSelector((state) => state.notes.isFetching);
     let id = useParams();
-
+    let navigate = useNavigate();
     let {title, name, description, _id} = singleNote;
 
 
@@ -19,6 +19,13 @@ const SingleNote = () => {
     const [showDelete, setShowDelete] = useState(false);
     const handleCloseDelete = () => setShowDelete(false);
     const handleShowDelete = () => setShowDelete(true);
+
+    const Del = () => {
+        if (!id) return;
+        dispatch(doDeleteSingleNote(id.id));
+
+        navigate('/notes');
+    }
 
 
     useEffect(() => {
@@ -71,7 +78,7 @@ const SingleNote = () => {
                     <Button variant="secondary" onClick={handleCloseDelete}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={handleCloseDelete}>
+                    <Button variant="danger" onClick={Del}>
                         Delete
                     </Button>
                 </Modal.Footer>

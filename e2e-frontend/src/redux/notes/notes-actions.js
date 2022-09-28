@@ -128,3 +128,29 @@ export const doGetSingleNote = (id) => {
             })
     }
 }
+
+const DeleteNoteStart = () => ({
+    type: NoteActions.DELETE_NOTE_START
+})
+const DeleteNoteSuccess = () => ({
+    type: NoteActions.DELETE_NOTE_SUCCESS,
+})
+const DeleteNoteError = (err) => ({
+    type: NoteActions.DELETE_NOTE_ERROR,
+    payload: err,
+})
+
+
+export const doDeleteSingleNote = (id) => {
+    return dispatch => {
+        dispatch(DeleteNoteStart())
+        axios
+            .delete(`${url}/${id}`)
+            .then(() => {
+                dispatch(DeleteNoteSuccess())
+            })
+            .catch(err => {
+                dispatch(DeleteNoteError(err))
+            })
+    }
+}

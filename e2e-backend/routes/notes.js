@@ -77,9 +77,14 @@ notesRoutes.route("/notes/:id").post((req, response) => {
 
 // This section will help you delete a notes
 
-notesRoutes.route("notes/:id").delete((req, response) => {
+notesRoutes.route("/:id").delete((req, response) => {
     let db_connect = db.getDb();
-    let myQuery = {_id: ObjectId(req.params.id)};
+    let myQuery = {
+        _id: ObjectId(req.params.id),
+        name: req.params.name,
+        title: req.params.title,
+        description: req.params.description
+    };
     db_connect.collection("notes").deleteOne(myQuery, (err, obj) => {
         if (err) throw err;
         console.log("1 document deleted");
