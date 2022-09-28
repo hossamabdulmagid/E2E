@@ -80,10 +80,7 @@ notesRoutes.route("/notes/:id").post((req, response) => {
 notesRoutes.route("/:id").delete((req, response) => {
     let db_connect = db.getDb();
     let myQuery = {
-        _id: ObjectId(req.params.id),
-        name: req.params.name,
-        title: req.params.title,
-        description: req.params.description
+        _id: ObjectId(req.params.id)
     };
     db_connect.collection("notes").deleteOne(myQuery, (err, obj) => {
         if (err) throw err;

@@ -47,16 +47,17 @@ const editNoteError = (err) => ({
 
 export const DoEditNote = (data) => {
     console.log(`id get Called ${data._id}`);
-    console.log(`@@@@runing`);
-    console.log(data);
+    console.log(`@@@@runing`)
+    console.log(data,`data from action files`);
     console.log(`id get Called ${data._id}`);
     return dispatch => {
         dispatch(editNoteStart())
         axios
-            .update(`${url}/notes/${data._id}`, {
+            .post(`${url}/notes/${data._id}`, {
                 ...data
             })
             .then(res => {
+                dispatch(editNoteSuccess())
                 console.log(res);
             })
             .catch(err => {

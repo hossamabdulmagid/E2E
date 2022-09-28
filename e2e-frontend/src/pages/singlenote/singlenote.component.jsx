@@ -1,13 +1,12 @@
 import {useEffect, useState} from "react";
-import {Alert, Button, Card, Form, Modal, Spinner} from 'react-bootstrap';
+import {Alert, Button, Card, Modal, Spinner} from 'react-bootstrap';
 import {useNavigate, useParams} from "react-router";
 import {doDeleteSingleNote, DoEditNote, doGetSingleNote} from "../../redux/notes/notes-actions";
-import {useDispatch, useSelector} from "react-redux";
-import {RapperForm} from "../createnote/createnote-styles";
-import {useForm} from "react-hook-form";
+import {connect, useDispatch, useSelector} from "react-redux";
 
-const SingleNote = () => {
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+import EditSingleNote from "./editSingleNote";
+
+const SingleNote = ({DoEditNote}) => {
 
     let dispatch = useDispatch();
 
@@ -16,7 +15,12 @@ const SingleNote = () => {
     let id = useParams();
     let navigate = useNavigate();
     let {title, name, description, _id} = singleNote;
-
+    const [formData, setFormData] = useState({
+        _id: '',
+        name: '',
+        title: '',
+        description: ''
+    })
 
     console.log(id.id, `id from Params`);
 
@@ -29,12 +33,7 @@ const SingleNote = () => {
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
 
-    const [formData, setFormData] = useState({
-        _id: '',
-        name: '',
-        title: '',
-        description: ''
-    })
+
     const Del = () => {
         if (!id) return;
         dispatch(doDeleteSingleNote(id.id));
@@ -44,26 +43,21 @@ const SingleNote = () => {
 
 
     useEffect(() => {
-        if (!id) return;
-        dispatch(doGetSingleNote(id.id));
-        setFormData({...singleNote});
+        if (!id) {
+            return;
+        } else {
+            setFormData({
+                ...formData, _id: singleNote.id,
+                title: singleNote.title,
+                name: singleNote.name,
+                description: singleNote.description
+            });
+
+            dispatch(doGetSingleNote(id.id));
+        }
     }, [])
 
 
-    const onSubmit = data => {
-        console.log(data);
-        dispatch(DoEditNote(formData))
-        setFormData({
-            _id: '',
-            name: '',
-            title: '',
-            description: ''
-        })
-        navigate('/notes');
-
-    }
-
-    console.log(formData, `form data while Typing`);
     return (
         <>
             <div className={'container'}>
@@ -98,76 +92,16 @@ const SingleNote = () => {
                 </div>
             </div>
             <>
-                <Modal show={showEdit} onHide={handleCloseEdit} animation={false}>
-
-                    <Modal.Header closeButton>
-                        <Modal.Title>Your Will Edit This Note</Modal.Title>
-                    </Modal.Header>
-
-                    <Modal.Body>
-                        <RapperForm>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Control
-                                        {...register("_id", {required: "Id is required"})}
-                                        className={'mb-4'}
-                                        type="hidden"
-                                        placeholder="Enter name Of Your Notes"
-                                        value={formData._id}
-                                        onChange={(e) => setFormData({...formData, _id: e.target.value})}
-                                    />
-                                    <Form.Control
-                                        {...register("name", {required: "Name is required"})}
-                                        className={'mb-4'}
-                                        type="text"
-                                        placeholder="Enter name Of Your Notes"
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                    />
-                                    <div className={'text-danger'}>
-                                        {errors.name && <p role="alert">{errors.name?.message}</p>}
-                                    </div>
-                                    <Form.Control
-                                        {...register("title", {required: "Title is required"})}
-                                        className={'mb-4'}
-                                        type="text"
-                                        placeholder="Enter title Of Your Notes"
-                                        value={formData.title}
-                                        onChange={(e) => setFormData({...formData, title: e.target.value})}
-
-                                    />
-                                    <div className={'text-danger'}>
-                                        {errors.title && <p role="alert">{errors.title?.message}</p>}
-                                    </div>
-                                    <Form.Control
-                                        {...register("description", {required: "Description is required"})}
-                                        className={'mb-4'}
-                                        as="textarea"
-                                        rows={3}
-                                        placeholder="Enter description Of Your description"
-                                        value={formData.description}
-                                        onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                    />
-                                    <div className={'text-danger'}>
-                                        {errors.description && <p role="alert">{errors.description?.message}</p>}
-                                    </div>
-                                </Form.Group>
-                                <div className={'container text-end'}>
-
-                                    <Button variant="secondary" onClick={handleCloseEdit} className={'text-right me-2'}>
-                                        Close
-                                    </Button>
-                                    <Button variant="danger" type='submit'>
-                                        Edit
-                                    </Button>
-                                </div>
-
-                            </form>
-                        </RapperForm>
-                    </Modal.Body>
-                    <Modal.Footer>
-                    </Modal.Footer>
-                </Modal>
+                <EditSingleNote
+                    showEdit={showEdit}
+                    handleCloseEdit={handleCloseEdit}
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleShowEdit={handleShowEdit}
+                    setShowEdit={() => setShowEdit()}
+                    DoEditNote={DoEditNote}
+                    id={singleNote._id}
+                />
             </>
             <>
                 <Modal show={showDelete} onHide={handleCloseDelete} animation={false}>
@@ -192,5 +126,10 @@ const SingleNote = () => {
     )
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    DoEditNote: (data) => dispatch(DoEditNote(data)),
 
-export default SingleNote;
+});
+
+
+export default connect(null, mapDispatchToProps)(SingleNote);
