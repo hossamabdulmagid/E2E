@@ -1,7 +1,18 @@
 import {Button, Form} from 'react-bootstrap';
 import {RapperForm} from './createnote-styles'
+import {useNavigate} from "react-router";
+import {useForm} from "react-hook-form";
 
 const CreateNotes = () => {
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const onSubmit = data => console.log(data);
+
+    const navigate = useNavigate();
+
+
+    const goToHomePage = () => {
+        navigate('/');
+    }
     return (
         <div className={'container text-center'}>
             <div className={'container'}>
@@ -11,36 +22,51 @@ const CreateNotes = () => {
                             <h2>
                                 Create Note
                             </h2>
-                            <Form>
+                            <form onSubmit={handleSubmit(onSubmit)}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Control
+                                        {...register("name", {required: "Name is required"})}
+
                                         className={'mb-4'}
                                         type="text"
                                         placeholder="Enter name Of Your Notes"
-                                        required
+
                                     />
+                                    <div className={'text-danger'}>
+
+                                        {errors.name && <p role="alert">{errors.name?.message}</p>}
+                                    </div>
                                     <Form.Control
+                                        {...register("title", {required: "Title is required"})}
+
                                         className={'mb-4'}
                                         type="text"
                                         placeholder="Enter title Of Your Notes"
-                                        required
-                                    />
 
+                                    />
+                                    <div className={'text-danger'}>
+                                        {errors.title && <p role="alert">{errors.title?.message}</p>}
+
+                                    </div>
                                     <Form.Control
+                                        {...register("description", {required: "Description is required"})}
+
                                         className={'mb-4'}
                                         as="textarea"
                                         rows={3}
                                         placeholder="Enter description Of Your description"
-                                        required
                                     />
+                                    <div className={'text-danger'}>
+                                        {errors.description && <p role="alert">{errors.description?.message}</p>}
+                                    </div>
                                 </Form.Group>
                                 <Button variant="success" type="submit" className={'me-2'}>
                                     Submit
                                 </Button>
-                                <Button variant="danger">
+                                <Button variant="danger" onClick={goToHomePage}>
                                     Cancel
                                 </Button>
-                            </Form>
+                            </form>
                         </RapperForm>
                     </div>
                 </div>
