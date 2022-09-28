@@ -27,6 +27,7 @@ notesRoutes.route("/notes").get((req, res) => {
 });
 
 // This section will help you get a single notes by id
+
 notesRoutes.route("/notes/:id").get((req, res) => {
     let db_connect = db.getDb();
     let myQuery = {_id: ObjectId(req.params.id)};

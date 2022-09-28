@@ -2,10 +2,22 @@ import {Button, Form} from 'react-bootstrap';
 import {RapperForm} from './createnote-styles'
 import {useNavigate} from "react-router";
 import {useForm} from "react-hook-form";
+import {DoCreateNote} from '../../redux/notes/notes-actions';
+import {useDispatch} from "react-redux";
 
 const CreateNotes = () => {
+    let dispatch = useDispatch();
+
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        console.log(data);
+        if (!data) {
+            return;
+        } else {
+            dispatch(DoCreateNote(data))
+            navigate('/notes');
+        }
+    }
 
     const navigate = useNavigate();
 
