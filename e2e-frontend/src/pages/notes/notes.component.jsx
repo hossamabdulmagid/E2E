@@ -13,6 +13,7 @@ const Notes = ({allNotes = [], loading}) => {
 
 
     return (
+
         <div className={'container text-center mb-xl-4'}>
             <div className={'row'}>
                 <h1>
@@ -21,16 +22,17 @@ const Notes = ({allNotes = [], loading}) => {
                 <CardGroup>
                     {!loading ? allNotes.map((singleNote) => {
                             return (
-                                <div className={'col-sm-4'} key={singleNote._id}>
+
+                                <div className={'col-sm-4 mt-1'} key={singleNote._id}>
                                     <LinK to={`/notes/${singleNote._id}`}>
-                                        <Card className={'me-2 mt-2'} bg={'dark'} text={"dark" ? 'light' : 'dark'}>
+                                        <Card className={'me-2 mt-2 h-100 '} bg={'dark'}
+                                              text={"dark" ? 'light' : 'dark'}>
                                             <Card.Body>
                                                 <Card.Title>
                                                     <strong>
                                                         title
                                                     </strong>
                                                     {" "}{singleNote && singleNote.title}
-
                                                 </Card.Title>
                                                 <Card.Text>
                                                     <strong>
@@ -40,7 +42,7 @@ const Notes = ({allNotes = [], loading}) => {
                                                 </Card.Text>
                                             </Card.Body>
                                             <Card.Footer>
-                                                <small className="text-muted">
+                                                <small className="" text={'light'}>
                                                     <strong>
                                                         name
                                                     </strong>{" "} {singleNote && singleNote.name}
@@ -63,6 +65,7 @@ const Notes = ({allNotes = [], loading}) => {
                 </CardGroup>
             </div>
         </div>
+
     )
 }
 

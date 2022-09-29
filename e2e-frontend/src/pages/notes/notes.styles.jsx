@@ -8,7 +8,7 @@ export const LinK = styled(Link)`
 
   &:hover {
     text-decoration: none;
-    color: black;
+    color: whitesmoke;
 
   }
 
