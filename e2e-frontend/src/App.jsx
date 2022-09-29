@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom'
 import CreateNotes from "./pages/createnote/createnotes.component";
 import Notes from "./pages/notes/notes.component";
 import SingleNote from "./pages/singlenote/singlenote.component";
+import Footer from "./components/footer/footer.component";
 
 const App = () => {
     return (
@@ -16,7 +17,7 @@ const App = () => {
                 <Route path={'/notes'} element={<Notes/>}/>
                 <Route path={'/notes/:id'} element={<SingleNote/>}/>
             </Routes>
-
+            <Footer/>
         </>
     );
 }

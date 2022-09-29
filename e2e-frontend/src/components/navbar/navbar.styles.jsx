@@ -17,6 +17,6 @@ export const RapperNavigationBar = styled.div`
     border: 2px solid white;
     margin-left: 8px;
     text-align: center;
-    border-radius: 20px 0px;
+    border-radius: 20px 0;
   }
 `;

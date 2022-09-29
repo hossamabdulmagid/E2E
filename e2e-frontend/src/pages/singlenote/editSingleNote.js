@@ -4,13 +4,13 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router";
 
 
-const EditSingleNote = ({showEdit, handleCloseEdit, handleShowEdit, DoEditNote, formData, setFormData}) => {
+const EditSingleNote = ({showEdit, handleCloseEdit, DoEditNote, formData, setFormData}) => {
     let navigate = useNavigate();
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
 
 
     const onSubmit = async (data) => {
-        console.log(`onSubmit Is Runing`);
+        console.log(`onSubmit Is Running`);
         console.log(data);
         await DoEditNote(data)
         setFormData({

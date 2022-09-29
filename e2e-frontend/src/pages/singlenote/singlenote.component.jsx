@@ -5,6 +5,7 @@ import {doDeleteSingleNote, DoEditNote, doGetSingleNote} from "../../redux/notes
 import {connect, useDispatch, useSelector} from "react-redux";
 
 import EditSingleNote from "./editSingleNote";
+import {RapperSingleNote} from "./singlenote.styles";
 
 const SingleNote = ({DoEditNote}) => {
 
@@ -14,7 +15,7 @@ const SingleNote = ({DoEditNote}) => {
     let Loading = useSelector((state) => state.notes.isFetching);
     let id = useParams();
     let navigate = useNavigate();
-    let {title, name, description, _id} = singleNote;
+    let {title, name, description} = singleNote;
     const [formData, setFormData] = useState({
         _id: '',
         name: '',
@@ -45,7 +46,7 @@ const SingleNote = ({DoEditNote}) => {
     useEffect(() => {
         if (!id) return;
         setFormData({
-            ...formData, _id: singleNote.id,
+            _id: singleNote.id,
             title: singleNote.title,
             name: singleNote.name,
             description: singleNote.description
@@ -53,11 +54,11 @@ const SingleNote = ({DoEditNote}) => {
 
         dispatch(doGetSingleNote(id.id));
 
-    }, [doGetSingleNote, id.id])
+    }, [doGetSingleNote, id.id, singleNote.id])
 
 
     return (
-        <>
+        <RapperSingleNote>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-sm-12 text-center mt-2 mb-2'}>
@@ -134,13 +135,12 @@ const SingleNote = ({DoEditNote}) => {
                     </Modal.Footer>
                 </Modal>
             </>
-        </>
+        </RapperSingleNote>
     )
 }
 
 const mapDispatchToProps = (dispatch) => ({
     DoEditNote: (data) => dispatch(DoEditNote(data)),
-
 });
 
 
