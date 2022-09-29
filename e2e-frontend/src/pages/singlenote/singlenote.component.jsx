@@ -43,19 +43,17 @@ const SingleNote = ({DoEditNote}) => {
 
 
     useEffect(() => {
-        if (!id) {
-            return;
-        } else {
-            setFormData({
-                ...formData, _id: singleNote.id,
-                title: singleNote.title,
-                name: singleNote.name,
-                description: singleNote.description
-            });
+        if (!id) return;
+        setFormData({
+            ...formData, _id: singleNote.id,
+            title: singleNote.title,
+            name: singleNote.name,
+            description: singleNote.description
+        });
 
-            dispatch(doGetSingleNote(id.id));
-        }
-    }, [singleNote.id])
+        dispatch(doGetSingleNote(id.id));
+
+    }, [doGetSingleNote, id.id])
 
 
     return (
@@ -113,7 +111,7 @@ const SingleNote = ({DoEditNote}) => {
                     formData={formData}
                     setFormData={setFormData}
                     handleShowEdit={handleShowEdit}
-                    setShowEdit={() => setShowEdit()}
+                    setShowEdit={() => setShowEdit}
                     DoEditNote={DoEditNote}
                     id={singleNote._id}
                 />

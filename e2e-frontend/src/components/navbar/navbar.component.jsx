@@ -8,7 +8,7 @@ const NavigationBar = () => {
     return (
         <RapperNavigationBar>
             <header className={'header'}>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar collapseOnSelect={true} expand="lg" bg="dark" variant="dark">
                     <Container>
                         <Navbar.Brand>
                             <Link to='/' className={'link'}>
@@ -20,8 +20,8 @@ const NavigationBar = () => {
                             <Nav className="me-auto">
                             </Nav>
                             <Nav>
-                                <Link to="/notes" className={'link pe-3'}> View Notes</Link>
-                                <Link to="/create" className={'link'}>Create Notes</Link>
+                                <Link to="/notes" className={'link pe-3 mt-2 mb-2'}> View Notes</Link>
+                                <Link to="/create" className={'link  mt-2 mb-2'}>Create Notes</Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

@@ -9,7 +9,7 @@ const Notes = ({allNotes = [], loading}) => {
 
     useEffect(() => {
         dispatch(DoGetAllNotes())
-    }, [])
+    }, [DoGetAllNotes,allNotes.length])
 
 
     return (
@@ -42,7 +42,7 @@ const Notes = ({allNotes = [], loading}) => {
                                                 </Card.Text>
                                             </Card.Body>
                                             <Card.Footer>
-                                                <small className="" text={'light'}>
+                                                <small className="">
                                                     <strong>
                                                         name
                                                     </strong>{" "} {singleNote && singleNote.name}
