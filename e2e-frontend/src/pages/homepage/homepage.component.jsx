@@ -6,7 +6,7 @@ const HomePage = () => {
 
         <div className={'container text-center'}>
             <h1>
-                Homepage
+                Home page
             </h1>
         </div>
     )

@@ -55,7 +55,7 @@ const SingleNote = ({DoEditNote}) => {
 
             dispatch(doGetSingleNote(id.id));
         }
-    }, [ singleNote.id])
+    }, [singleNote.id])
 
 
     return (
@@ -65,19 +65,34 @@ const SingleNote = ({DoEditNote}) => {
                     <div className={'col-sm-12 text-center mt-2 mb-2'}>
 
                         {!Loading ?
-                            <Card className="text-center">
-                                <Card.Header>{title}</Card.Header>
-                                <Card.Img variant="top"
-                                          src={"https://picsum.photos/286/190?t=" + Math.floor(Math.random() * 10000) + ""}/>
+                            <Card className="text-center" bg={'dark'}
+                                  text={"dark".toLowerCase() === 'light' ? 'dark' : 'white'}
+                            >
+                                <Card.Header>
+                                    <strong>title</strong>
+                                    {" "}{title}
+                                </Card.Header>
+
                                 <Card.Body>
-                                    <Card.Title>{name}</Card.Title>
+                                    <Card.Title>
+                                        <strong>
+                                            name
+                                        </strong>
+                                        {" "}{name}
+                                    </Card.Title>
                                     <Card.Text>
+                                        <strong>
+                                            description
+                                        </strong>
+                                        {" "}
                                         {description}
                                     </Card.Text>
+
+                                </Card.Body>
+                                <Card.Footer className="text-muted">
                                     <Button variant="info" className={'me-2'} onClick={handleShowEdit}>Edit</Button>
                                     <Button variant="danger" onClick={handleShowDelete}>Delete</Button>
-                                </Card.Body>
-                                <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                                </Card.Footer>
                             </Card> :
                             <div className={'container'}>
                                 <div className={'row'}>
@@ -122,7 +137,6 @@ const SingleNote = ({DoEditNote}) => {
                 </Modal>
             </>
         </>
-
     )
 }
 

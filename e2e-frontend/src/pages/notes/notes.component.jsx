@@ -23,18 +23,27 @@ const Notes = ({allNotes = [], loading}) => {
                             return (
                                 <div className={'col-sm-4'} key={singleNote._id}>
                                     <LinK to={`/notes/${singleNote._id}`}>
-                                        <Card className={'me-2 mt-2'}>
-                                            <Card.Img variant="top"
-                                                      src={"https://picsum.photos/286/190?t=" + Math.floor(Math.random() * 10000) + ""}/>
+                                        <Card className={'me-2 mt-2'} bg={'dark'} text={"dark" ? 'light' : 'dark'}>
                                             <Card.Body>
-                                                <Card.Title>{singleNote && singleNote.title}</Card.Title>
+                                                <Card.Title>
+                                                    <strong>
+                                                        title
+                                                    </strong>
+                                                    {" "}{singleNote && singleNote.title}
+
+                                                </Card.Title>
                                                 <Card.Text>
-                                                    {singleNote && singleNote.description}
+                                                    <strong>
+                                                        description
+                                                    </strong>
+                                                    {" "}{singleNote && singleNote.description}
                                                 </Card.Text>
                                             </Card.Body>
                                             <Card.Footer>
                                                 <small className="text-muted">
-                                                    {singleNote && singleNote.name}
+                                                    <strong>
+                                                        name
+                                                    </strong>{" "} {singleNote && singleNote.name}
                                                 </small>
                                             </Card.Footer>
                                         </Card>
