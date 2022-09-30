@@ -1,7 +1,7 @@
 import {NoteActions} from "./note-types";
 import axios from 'axios';
 
-let url = 'http://localhost:8080';
+let url = 'http://localhost:8081';
 
 const getNoteStart = () => ({
     type: NoteActions.GET_NOTES_START,
@@ -71,7 +71,7 @@ const DeleteNoteError = (err) => ({
 
 export const DoEditNote = (data) => {
     console.log(`id get Called ${data._id}`);
-    console.log(`@@@@runing`)
+    console.log(`@@@@running`)
     console.log(data, `data from action files`);
     console.log(`id get Called ${data._id}`);
     return dispatch => {
@@ -93,16 +93,23 @@ export const DoEditNote = (data) => {
 export const DoCreateNote = (data) => {
     console.log(data);
     console.log(`data ${data} get Called from DoCreateNote Function`)
+    let hasError = false;
     return dispatch => {
         dispatch(createNoteStart())
         axios
             .post(`${url}/notes/add`, {
                 ...data
             })
-            .then(res => {
-                console.log(res)
-                dispatch(createNoteSuccess());
-                dispatch(DoGetAllNotes());
+            .then((res, err) => {
+                if (err) {
+                    hasError = true;
+                    dispatch(createNoteError(err))
+
+                } else if (!hasError) {
+                    console.log(res)
+                    dispatch(createNoteSuccess());
+                    dispatch(DoGetAllNotes());
+                }
             })
             .catch(err => {
                 dispatch(createNoteError(err))
@@ -111,13 +118,19 @@ export const DoCreateNote = (data) => {
 }
 
 export const DoGetAllNotes = () => {
+    let hasError = false;
     return dispatch => {
         dispatch(getNoteStart())
         axios
             .get(`${url}/notes`)
-            .then(res => {
-                dispatch(getNoteSuccess(res.data))
-                console.log(res && res.data, `response from LocalHost:8080`);
+            .then((res, err) => {
+                if (err) {
+                    hasError = true;
+                    dispatch(getNoteError(err))
+                } else if (!hasError) {
+                    dispatch(getNoteSuccess(res.data))
+                    console.log(res && res.data, `response from LocalHost:8080`);
+                }
             })
             .catch(err => {
                 dispatch(getNoteError(err))
@@ -127,12 +140,18 @@ export const DoGetAllNotes = () => {
 
 
 export const doGetSingleNote = (id) => {
+    let hasError = false;
     return dispatch => {
         dispatch(getSingleNoteStart())
         axios
             .get(`${url}/notes/${id}`)
-            .then(res => {
-                dispatch(getSingleNoteSuccess(res.data))
+            .then((res, err) => {
+                if (err) {
+                    hasError = true;
+                    dispatch(getSingleNoteError(err))
+                } else if (!hasError) {
+                    dispatch(getSingleNoteSuccess(res.data))
+                }
             })
             .catch(err => {
                 dispatch(getSingleNoteError(err))

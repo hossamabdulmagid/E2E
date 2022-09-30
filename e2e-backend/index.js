@@ -10,10 +10,11 @@ app.use(require("./routes/notes"));
 // get driver connection
 const db = require("./db/connectDb");
 
+db.connectToServer((err) => {
+    if (err) console.error(err);
+});
+
 app.listen(port, () => {
     // perform a database connection when server starts
-    db.connectToServer((err) => {
-        if (err) console.error(err);
-    });
     console.log(`Server is running on port: ${port}`);
 });

@@ -1,23 +1,39 @@
 # E2E
-Runs Backend with .
-### `cd e2e-backend`
-### `npm install --save`
-### `node index.js`
-Backend is running now you will see in your terminal
-### `Server is running on port: 8080`
-### `Successfully connected to MongoDB`.
+this is Mern app CRUD system for notes
+(adding note, edit note, delete note, create note)
+......
+
+### run app using docker-compose
+
+`docker-compose up`
+
+or setup individually parts
+
+### Runs Backend with .
+
+cd e2e-backend
+npm install
+node index.js
 
 
-Run Frontend With .
-### `cd e2e-frontend`
-### `npm install --save`
-### `npm start`
 
-### `frontend-app is runing on Port 8080`
 
-Run Algorithm
-### `cd productParse` 
-### `difine file with name.cvs  or you can use input_example.csv`
-### `run node index.js`
-### `enter Stdin name in input input_example.csv`
-### `to Create file in the root directory to check result`
+
+
+### start Frontend.
+javascript
+cd e2e-frontend
+npm install
+npm start
+
+
+
+#### frontend-app is runing on Port 8080
+
+Run reporting ,
+shell
+cd productParse
+node index.js
+# prompt will ask you to enter file name of report
+# files should be generated on same directory.
+```
