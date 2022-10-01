@@ -1,31 +1,47 @@
 import {useEffect, useState} from 'react';
 import {DoGetAllNotes} from "../../redux/notes/notes-actions";
-import {connect, useDispatch} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {Alert, Button, Card, CardGroup, Spinner} from "react-bootstrap";
 import {LinK, RapperNoteComponent} from "./notes.styles";
 
 const HowItWork = () => {
     const [show, setShow] = useState(true);
+    const err = useSelector(state => state.notes.errorMessage);
 
-    return (
-        <>
-            <Alert show={show} variant="success">
-                <Alert.Heading>How's it going?!</Alert.Heading>
+    if (err.length) {
+        return (
+            <Alert show={show} variant="danger">
+                <h1>Ops SomeThing wrong</h1>
                 <p>
-                    If you want to edit or delete any note, please click that specific note to access the features.
+                    {err || ""}
                 </p>
-                <hr/>
                 <div className="d-flex justify-content-end">
-                    <Button onClick={() => setShow(false)} variant="outline-success">
+                    <Button onClick={() => setShow(false)} variant="outline-danger">
                         Close me y'all!
                     </Button>
                 </div>
             </Alert>
+        )
+    } else {
+        return (
+            <>
+                <Alert show={show} variant="success">
+                    <Alert.Heading>How's it going?!</Alert.Heading>
+                    <p>
+                        If you want to edit or delete any note, please click that specific note to access the features.
+                    </p>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShow(false)} variant="outline-success">
+                            Close me y'all!
+                        </Button>
+                    </div>
+                </Alert>
 
-        </>
-    );
+            </>
+        );
+    }
 }
-
 const Notes = ({allNotes = [], loading}) => {
     let dispatch = useDispatch();
 

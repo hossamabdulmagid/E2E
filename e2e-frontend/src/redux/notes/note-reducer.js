@@ -9,7 +9,7 @@ const INITIAL_STATE = {
         name: '',
         description: '',
     },
-    errorMessage: null,
+    errorMessage: '',
 };
 
 const NotesReducer = (state = INITIAL_STATE, action) => {
@@ -31,7 +31,7 @@ const NotesReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: false,
-                errorMessage: action.payload.errorMessage,
+                errorMessage: action.payload,
             }
 
         case NoteActions.SINGLE_NOTE_START:
@@ -56,7 +56,7 @@ const NotesReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: false,
-                errorMessage: action.payload.errorMessage,
+                errorMessage: action.payload,
             }
 
         case NoteActions.EDIT_NOTES_START:
@@ -73,7 +73,7 @@ const NotesReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: false,
-                errorMessage: action.payload.errorMessage,
+                errorMessage: action.payload,
             }
         default:
             return state;
